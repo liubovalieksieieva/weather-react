@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Day from "./components/Day";
 
 function App() {
   const [data, setData] = useState({});
@@ -9,6 +10,7 @@ function App() {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`;
 
   const searchWeather = (e) => {
+    city.trim();
     if (e.key === "Enter") {
       axios.get(url).then((response) => {
         setData(response.data);
@@ -16,8 +18,13 @@ function App() {
       setCity("");
     }
   };
+  const searchCity = (e) => {
+    const city = e.target.value;
+    setCity(city);
+  };
   return (
     <div className="app">
+      <Day />
       <header>
         <h1 className="header">weather forecast</h1>
       </header>
@@ -27,7 +34,7 @@ function App() {
           type="text"
           placeholder="Location"
           value={city}
-          onChange={(e) => setCity(e.target.value.trim())}
+          onChange={searchCity}
           onKeyDown={searchWeather}
         />
         <span className="search"></span>
