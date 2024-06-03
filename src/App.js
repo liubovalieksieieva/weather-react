@@ -18,19 +18,23 @@ function App() {
   };
   return (
     <div className="app">
+      <header>
+        <h1 className="header">weather forecast</h1>
+      </header>
       <div className="input">
         <input
           name="city"
           type="text"
           placeholder="Location"
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={(e) => setCity(e.target.value.trim())}
           onKeyDown={searchWeather}
         />
+        <span className="search"></span>
       </div>
       <div className="container">
-        <div className="header">
-          <h1>{data.name}</h1>
+        <div className="container-header">
+          <h2>{data.name}</h2>
           <div>
             {data.main ? <div>{data.main.temp.toFixed()}°C</div> : null}
           </div>
