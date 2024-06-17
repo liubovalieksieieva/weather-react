@@ -11,7 +11,16 @@ function App() {
 
   const searchWeather = (e) => {
     city.trim();
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && e.target.value !== "") {
+      axios.get(url).then((response) => {
+        setData(response.data);
+      });
+      setCity("");
+    }
+  };
+  const searchWeatherClick = (e) => {
+    city.trim();
+    if (e.target.value !== "") {
       axios.get(url).then((response) => {
         setData(response.data);
       });
@@ -32,10 +41,12 @@ function App() {
         <input
           name="city"
           type="text"
+          autoFocus
           placeholder="Location"
           value={city}
           onChange={searchCity}
           onKeyDown={searchWeather}
+          onClick={searchWeatherClick}
         />
         <span className="search"></span>
       </div>
